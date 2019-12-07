@@ -1,13 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import mock from './lib/mock';
+import config from './lib/config';
+import renderDraft from 'dom-draft-js-renderer/es';
 
 
-const app = document.createElement('div');
-document.body.appendChild(app);
+document.body.appendChild(renderDraft(mock, config));
 
-
-
-ReactDOM.render(
-    <div>Hello world</div>,
-    app,
-);
