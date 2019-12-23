@@ -1,7 +1,12 @@
-import mock from './lib/mock';
-import config from './lib/config';
-import renderDraft from 'dom-draft-js-renderer/es';
+import findShortestPath from './findShortestPath';
 
-
-document.body.appendChild(renderDraft(mock, config));
-
+console.log(findShortestPath([
+	{ x: 1, y: 1 },
+	{ x: 7, y: 1 },
+	{ x: 1, y: 3 },
+	{ x: 7, y: 3 },
+	{ x: 1, y: 1 },
+	{ x: 7, y: 1 },
+	{ x: 1, y: 3 },
+	{ x: 7, y: 3 },
+]));
