@@ -24,7 +24,7 @@ function getDistance(a: Point, b: Point): Decimal {
 function getPathDistance(path: Point[]): Decimal {
 	let result: Decimal = new Decimal(0);
 
-	for (let i = 0; i <= path.length - 2; i ++) {
+	for (let i = 0; i < path.length - 1; i ++) {
 		result = result.plus(getDistance(path[i], path[i + 1]));
 	}
 
