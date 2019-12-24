@@ -3,7 +3,7 @@ function isNot(item: any) {
 }
 
 
-export default function getTranspositions(items: any[], callback: Function, transposition: any[] = []): void {
+export default function getTranspositions<T>(items: T[], callback: Function, transposition: T[] = []): void {
 	if (items.length === 0) {
 		callback(transposition);
 	} else {

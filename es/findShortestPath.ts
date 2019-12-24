@@ -1,5 +1,4 @@
 import { Decimal } from 'decimal.js';
-
 import getTranspositions from './getTranspositions';
 
 
@@ -13,7 +12,6 @@ interface Point {
 interface Result {
     distance: Decimal,
     transposition?: Point[],
-
 }
 
 
@@ -40,14 +38,12 @@ export default function findShortestPath(path: Point[]): Point[] {
 	function catchTransposition(transposition: Point[]) {
 		const distance: Decimal = getPathDistance(transposition);
 
-		console.log(JSON.stringify(transposition, null, 2), JSON.stringify(distance, null, 2));
-
 		if (distance.lessThan(result.distance)) {
 			result = { transposition, distance }
 		}
 	}
 	
-	getTranspositions(path, catchTransposition);
+	getTranspositions<Point>(path, catchTransposition);
 
 	return result.transposition;
 }
