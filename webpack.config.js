@@ -17,19 +17,26 @@ module.exports = {
 		open: true,
 	},
 	entry: {
-		index: './es/index.js'
+		index: './es/index'
 	},
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.tsx?$/,
 				loader: 'babel-loader',
 				options: {
-					presets: ['@babel/preset-react'],
-					plugins: ['@babel/plugin-proposal-class-properties']
+					presets: [
+						['@babel/preset-typescript', {
+							isTSX: true,
+							allExtensions: true,
+						}]
+					],
 				},
 				include: /\/es\//,
 			}
-		]
+		],
+	},
+	resolve: {
+		extensions: ['.ts', '.tsx', '.js'],
 	}
 };
