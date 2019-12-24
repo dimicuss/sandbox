@@ -8,8 +8,8 @@ export default function getTranspositions<T>(items: T[], callback: Function, tra
 		callback(transposition);
 	} else {
 		for (let j = 0; j < items.length; j++) {
-			const filteredItems: any[] = items.filter(isNot, items[j]);
-			const nextTransposition: any[] = [...transposition, items[j]];
+			const filteredItems: T[] = items.filter(isNot, items[j]);
+			const nextTransposition: T[] = [...transposition, items[j]];
 			getTranspositions(filteredItems, callback, nextTransposition);
 		}
 	}

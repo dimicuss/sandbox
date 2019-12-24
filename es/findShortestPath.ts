@@ -1,31 +1,31 @@
-import { Decimal } from 'decimal.js';
 import getTranspositions from './getTranspositions';
 
 
 
 interface Point {
-    x: Decimal,
-    y: Decimal
+    x: number,
+    y: number,
 }
 
 
 interface Result {
-    distance: Decimal,
+    distance: number,
     transposition?: Point[],
 }
 
 
 
-function getDistance(a: Point, b: Point): Decimal {
-	return b.x.minus(a.x).pow(2).plus(b.y.minus(a.y).pow(2)).sqrt();
+function getDistance(a: Point, b: Point): number {
+	return Math.sqrt((b.x - a.x) ** 2 + (b.y + a.y) ** 2);
 }
 
 
-function getPathDistance(path: Point[]): Decimal {
-	let result: Decimal = new Decimal(0);
+function getPathDistance(path: Point[]): number {
+	let result: number = 0;
 
-	for (let i = 0; i < path.length - 1; i ++) {
-		result = result.plus(getDistance(path[i], path[i + 1]));
+	for (let i = 0; i < path.length; i++) {
+	    let nextPoint: Point = i + 1 < path.length ? path[i + 1] : path[0];
+        result = result + getDistance(path[i], nextPoint);
 	}
 
 	return result;
@@ -33,12 +33,11 @@ function getPathDistance(path: Point[]): Decimal {
 
 
 export default function findShortestPath(path: Point[]): Point[] {
-	let result: Result = { distance: new Decimal(Infinity) };
+	let result: Result = { distance: Infinity };
 	
-	function catchTransposition(transposition: Point[]) {
-		const distance: Decimal = getPathDistance(transposition);
-
-		if (distance.lessThan(result.distance)) {
+	function catchTransposition(transposition: Point[]): void {
+		const distance: number = getPathDistance(transposition);
+		if (distance < result.distance) {
 			result = { transposition, distance }
 		}
 	}

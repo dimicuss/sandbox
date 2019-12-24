@@ -1,10 +1,9 @@
-import { Decimal } from 'decimal.js';
 import findShortestPath from './findShortestPath';
 
 
 console.log(findShortestPath([
-    { x: new Decimal(1), y: new Decimal(1) },
-    { x: new Decimal(7), y: new Decimal(4) },
-    { x: new Decimal(7), y: new Decimal(1) },
-    { x: new Decimal(1), y: new Decimal(3) },
+    { x: 1, y: 1 },
+    { x: 7, y: 4 },
+    { x: 7, y: 1 },
+    { x: 1, y: 3 },
 ]));
