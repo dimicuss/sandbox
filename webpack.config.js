@@ -17,7 +17,7 @@ module.exports = {
 		open: true,
 	},
 	entry: {
-		index: './es/index'
+		index: './src/index'
 	},
 	module: {
 		rules: [
@@ -26,14 +26,15 @@ module.exports = {
 				loader: 'babel-loader',
 				options: {
 					presets: [
+						['@babel/preset-react'],
 						['@babel/preset-typescript', {
 							isTSX: true,
 							allExtensions: true,
 						}]
 					],
 				},
-				include: /\/es\//,
-			}
+				include: /\/src\//,
+			},
 		],
 	},
 	resolve: {
