@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
 
-import Button from './components/Button';
-
-
-const app = document.createElement('div');
-
+import BasePage from '@/pages/BasePage';
 
 
-ReactDOM.render(<Button>sdasd</Button>, app);
+const store = createStore(combineReducers({}));
 
 
-document.body.appendChild(app);
+const div = document.createElement('div');
+document.body.appendChild(div);
+ReactDOM.render(
+    <Provider store={store}>
+        <BasePage />
+    </Provider>,
+    div,
+);
