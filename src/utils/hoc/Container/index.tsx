@@ -38,8 +38,6 @@ class Container extends React.PureComponent {
     render() {
         const { Descendant, ...otherProps } = this.props;
 
-        console.log(this.modifiedContext);
-
         return (
             <Context.Provider value={this.modifiedContext}>
                 <Descendant {...otherProps} />
