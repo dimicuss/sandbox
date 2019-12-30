@@ -22,7 +22,7 @@ class Connector extends React.PureComponent {
 	constructor(props, context) {
 		super(props, context);
         const { Descendant, connect, name } = props;
-		this.ConnectedDescendant = connect(context[name])(Descendant);
+		this.ConnectedDescendant = connect(context.containers[name])(Descendant);
 	}
 
 
