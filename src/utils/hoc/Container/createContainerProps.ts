@@ -10,8 +10,6 @@ interface FunctionField {
 interface ContainerProps {
     actions: FunctionField
     selectors: FunctionField
-    reducer: Function,
-    saga: Function,
 }
 
 
@@ -36,35 +34,20 @@ function createSelector(pair: Pair): Pair {
 }
 
 
-function* defaultSaga() {}
-function defaultReducer(state) { return state; }
-function returnSaga() { return defaultSaga; }
-function returnReducer() { return defaultReducer; }
-
-
+export { ContainerProps };
 export default function createContainerProps(
     {
         name = '',
         actions = [],
         selectors = {},
-        createSaga = returnSaga,
-        createReducer = returnReducer
     }: {
         name: string
         actions: string[]
         selectors: { [key: string]: Function }
-        createSaga: Function,
-        createReducer: Function
     }
 ): ContainerProps {
-    const creatorArgs = {
+    return  {
         actions: actions.map(createAction, name).reduce(setPair, {}),
         selectors: Object.entries(selectors).map(createSelector, name).reduce(setPair, {})
     };
-
-    return {
-        ...creatorArgs,
-        saga: createSaga(creatorArgs),
-        reducer: createReducer(creatorArgs),
-    }
 }

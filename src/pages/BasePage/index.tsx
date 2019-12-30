@@ -1,7 +1,9 @@
 import React from 'react';
-import Store from '@/utils/hoc/Store'
+import Redux from '@/utils/hoc/Redux'
 import Container from '@/utils/hoc/Container';
 import compose from '@/utils/lib/compose';
+
+import BaseContainer from '@/containers/BaseContainer';
 
 
 class BasePage extends React.PureComponent {
@@ -12,7 +14,7 @@ class BasePage extends React.PureComponent {
 
 
 export default compose(
-    Container({ name: 'SomeName2' }),
-    Container({ name: 'SomeName1' }),
-    Store,
+    Container({ name: 'SomeName2', ...BaseContainer }),
+    Container({ name: 'SomeName1', ...BaseContainer }),
+    Redux,
 )(BasePage);

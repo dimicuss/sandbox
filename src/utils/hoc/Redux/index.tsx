@@ -3,6 +3,6 @@ import ContextConsumer from '../ContextConsumer';
 
 
 export default ContextConsumer({
-    name: 'store',
+    name: 'redux',
     Consumer: ReactReduxContext.Consumer,
 });
