@@ -12,7 +12,6 @@ import BasePage from '@/pages/BasePage';
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = applyMiddleware(sagaMiddleware);
 const store = createStore(combineReducers({}), middlewares);
-
 sagaMiddleware.run(rootSaga);
 
 

@@ -1,33 +1,66 @@
 import React from 'react';
-import createWrapper from '../../lib/createWrapper';
+import createHoc from '../../lib/createHoc';
 
 
 
 class ContextConsumer extends React.PureComponent {
-    props: {
-        Consumer: Function,
-        Descendant: Function,
-        name: string,
+    static defaultProps = {
+        consumers: {},
     };
 
 
-    renderChild = (value) => {
-        const { Descendant, Consumer, name, ...otherProps } = this.props;
+    props: {
+        consumers: { [name: string]: Function },
+        Descendant: Function,
+    };
 
-        const propsToPass = {
-            ...otherProps,
-            [name]: value,
-        };
+    contextValues: { [name: string]: any };
+    renderConsumer: Function;
 
-        return <Descendant {...propsToPass} />
+
+    constructor(props, context) {
+        super(props, context);
+        this.contextValues = {};
+        this.renderConsumer = this.createConsumerRenderer(Object.entries(props.consumers));
+    }
+
+
+    createConsumerRenderer = (consumerEntries, i = 0): Function => {
+        if (i < consumerEntries.length) {
+            const [name, Consumer] = consumerEntries[i];
+            const nextRenderConsumer = this.createConsumerRenderer(consumerEntries, i + 1);
+
+            const catchValue = (value) => {
+                this.contextValues = { ...this.contextValues, [name]: value };
+                return nextRenderConsumer();
+            };
+
+            return () => {
+                return <Consumer>{catchValue}</Consumer>;
+            };
+        }
+
+
+        return this.renderDescendant;
+    };
+
+
+     renderDescendant = () => {
+         const { Descendant, consumers, ...otherProps } = this.props;
+
+         const propsToPass = {
+             ...otherProps,
+             ...this.contextValues,
+         };
+
+         return <Descendant {...propsToPass} />
     };
 
 
     render() {
-        const { Consumer } = this.props;
-        return <Consumer>{this.renderChild}</Consumer>;
+        return this.renderConsumer();
     }
 }
 
 
-export default createWrapper(ContextConsumer);
+export default createHoc(ContextConsumer);

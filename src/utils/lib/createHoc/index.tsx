@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const createWrapper = (Wrapper: Function) => (props: object = {}) => (Descendant: Function): Function => {
+const createHoc = (Wrapper: Function) => (props: object = {}) => (Descendant: Function): Function => {
     class WrapperInvoker extends React.PureComponent {
         render() {
             return <Wrapper {...this.props} {...props} Descendant={Descendant} />;
@@ -12,4 +12,4 @@ const createWrapper = (Wrapper: Function) => (props: object = {}) => (Descendant
 };
 
 
-export default createWrapper;
+export default createHoc;

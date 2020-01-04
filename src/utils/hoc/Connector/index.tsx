@@ -1,5 +1,5 @@
 import React from 'react';
-import createWrapper from '../../lib/createWrapper';
+import createHoc from '../../lib/createHoc';
 
 
 import { Context } from '../Container';
@@ -35,4 +35,4 @@ class Connector extends React.PureComponent {
 
 
 
-export default createWrapper(Connector);
+export default createHoc(Connector);

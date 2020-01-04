@@ -3,6 +3,5 @@ import ContextConsumer from '../ContextConsumer';
 
 
 export default ContextConsumer({
-    name: 'redux',
-    Consumer: ReactReduxContext.Consumer,
+    consumers: { redux: ReactReduxContext.Consumer },
 });

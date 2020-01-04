@@ -3,7 +3,7 @@ import { combineReducers, ReducersMapObject } from 'redux'
 
 import createContainerProps, { ContainerProps } from './createContainerProps';
 
-import createWrapper from '../../lib/createWrapper';
+import createHoc from '../../lib/createHoc';
 import { runSaga, cancelSaga } from '../../lib/rootSaga';
 
 
@@ -62,13 +62,13 @@ class Container extends React.PureComponent {
         const { name, redux, createSaga, createReducer } = props;
         const containerProps = createContainerProps(props);
 
-        const args = { ...containerProps, containers: context.containers };
+        const args = { ...containerProps, containers: context.containers, name };
 
         const saga = createSaga(args);
         const reducer = createReducer(args);
         this.nextContext = {
-            containers: { ...context.containers, [name]: containerProps },
             reducers: { ...context.reducers, [name]: reducer },
+            containers: { ...context.containers, [name]: containerProps },
         };
 
         redux.store.replaceReducer(combineReducers(this.nextContext.reducers));
@@ -94,4 +94,4 @@ class Container extends React.PureComponent {
 }
 
 export { Context };
-export default createWrapper(Container);
+export default createHoc(Container);
