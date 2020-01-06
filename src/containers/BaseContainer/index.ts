@@ -4,9 +4,17 @@ import createReducer from './createReducer'
 
 export default {
     actions: [
-        'set',
-        'get',
+        'setTimePassed',
+        'setInterval',
+        'start',
+        'reset',
+        'increaseInterval',
+        'decreaseInterval',
     ],
+    selectors: {
+        timePassed: (state) => state.timePassed,
+        interval: (state) => state.interval,
+    },
     createSaga,
     createReducer,
 }

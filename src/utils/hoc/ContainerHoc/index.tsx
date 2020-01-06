@@ -45,6 +45,7 @@ function defaultCreateReducer() { return defaultReducer }
 class ContainerHoc extends React.PureComponent {
     props: Props;
     nextContainerContext: ContextType;
+    container: Container;
 
 
     static defaultProps = {
@@ -69,6 +70,7 @@ class ContainerHoc extends React.PureComponent {
             reducers: { ...containerContext.reducers, [name]: reducer },
             containers: { ...containerContext.containers, [name]: container },
         };
+        this.container = container;
 
         redux.store.replaceReducer(combineReducers(this.nextContainerContext.reducers));
         redux.store.dispatch(runSaga({ name, saga }));
@@ -78,6 +80,7 @@ class ContainerHoc extends React.PureComponent {
     componentWillUnmount(): void {
         const { name, redux } = this.props;
         redux.store.dispatch(cancelSaga({ name }));
+        redux.store.dispatch(this.container.actions.clearState());
     }
 
 
