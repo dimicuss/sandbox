@@ -7,53 +7,10 @@ import ConnectorHoc from "@/utils/hoc/ConnectorHoc";
 
 import BaseContainer from '@/containers/BaseContainer';
 
-
-type EventHandler = (event: any) => void;
-
-
-class BasePage extends React.PureComponent {
-    props: {
-        timePassed: number,
-        interval: number,
-        start: EventHandler,
-        reset: EventHandler,
-        increaseInterval: EventHandler,
-        decreaseInterval: EventHandler,
-    };
+import Timer from './components/Timer';
 
 
-    static defaultProps = {
-        timePassed: 0,
-        interval: 1,
-    };
-
-
-    render() {
-        const { timePassed, interval, start, reset, increaseInterval, decreaseInterval } = this.props;
-
-        return (
-            <div>
-                <div>
-                    <span>Time passed: {timePassed}</span>
-                </div>
-                <div>
-                    <button onClick={start}>Start</button> <button onClick={reset}>Reset</button>
-                </div>
-                <div>
-                    <div>
-                        <span>interval: {interval}</span>
-                    </div>
-                    <div>
-                        <button onClick={increaseInterval}>+</button> <button onClick={decreaseInterval}>-</button>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-
-export default compose(
+const ConnectedTimer = compose(
     ConnectorHoc({
         name: 'Timer',
         createProps: ({ timePassed, interval }) => ({
@@ -68,4 +25,12 @@ export default compose(
         }),
     }),
     ContainerHoc({ name: 'Timer', ...BaseContainer }),
-)(BasePage);
+)(Timer);
+
+
+
+export default class BasePage extends React.PureComponent {
+    render() {
+        return <ConnectedTimer />;
+    }
+}
