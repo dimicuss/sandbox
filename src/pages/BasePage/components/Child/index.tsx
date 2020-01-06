@@ -1,16 +1,15 @@
 import React from 'react';
-import { ReactReduxContext } from 'react-redux';
 
-import Container from '@/utils/hoc/Container';
-import ContextConsumer from '@/utils/hoc/ContextConsumer';
+import ContainerHoc from '@/utils/hoc/ContainerHoc';
+import ContextConsumerHoc from '@/utils/hoc/ContextConsumerHoc';
 
 import compose from '@/utils/lib/compose';
 
 import BaseContainer from '@/containers/BaseContainer';
 
-import ButtonOne from '../ButtonOne';
-import ButtonTwo from '../ButtonTwo';
-import ButtonThree from '../ButtonThree';
+import ButtonOne from '../../contexts/ButtonOne';
+import ButtonTwo from '../../contexts/ButtonTwo';
+import ButtonThree from '../../contexts/ButtonThree';
 
 
 
@@ -30,13 +29,12 @@ class Child extends React.PureComponent {
 
 
 export default compose(
-    Container({ name: 'child', ...BaseContainer }),
-    ContextConsumer({
+    ContainerHoc({ name: 'child', ...BaseContainer }),
+    ContextConsumerHoc({
         consumers: {
-            button1: ButtonOne.context.Consumer,
-            button2: ButtonTwo.context.Consumer,
-            button3: ButtonThree.context.Consumer,
-            redux: ReactReduxContext.Consumer,
+            button1: ButtonOne.Consumer,
+            button2: ButtonTwo.Consumer,
+            button3: ButtonThree.Consumer,
         },
     }),
 )(Child);

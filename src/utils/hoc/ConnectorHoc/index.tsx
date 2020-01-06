@@ -2,11 +2,11 @@ import React from 'react';
 import createHoc from '../../lib/createHoc';
 
 
-import { Context } from '../Container';
+import { ContainerContext } from '../ContainerHoc';
 
 
 
-class Connector extends React.PureComponent {
+class ConnectorHoc extends React.PureComponent {
     props: {
         name: string
         connect: Function
@@ -16,7 +16,7 @@ class Connector extends React.PureComponent {
     ConnectedDescendant: Function;
 
 
-    static contextType = Context;
+    static contextType = ContainerContext;
 
 
 	constructor(props, context) {
@@ -35,4 +35,4 @@ class Connector extends React.PureComponent {
 
 
 
-export default createHoc(Connector);
+export default createHoc(ConnectorHoc);

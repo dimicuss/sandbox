@@ -1,4 +1,4 @@
-import compose from '../../lib/compose';
+import compose from '../../../lib/compose';
 import { createAction as createActionAct } from 'redux-act';
 
 
@@ -7,7 +7,7 @@ interface FunctionField {
 }
 
 
-interface ContainerProps {
+interface Container {
     actions: FunctionField
     selectors: FunctionField
 }
@@ -34,8 +34,8 @@ function createSelector(pair: Pair): Pair {
 }
 
 
-export { ContainerProps };
-export default function createContainerProps(
+export { Container };
+export default function createContainer(
     {
         name = '',
         actions = [],
@@ -45,7 +45,7 @@ export default function createContainerProps(
         actions: string[]
         selectors: { [key: string]: Function }
     }
-): ContainerProps {
+): Container {
     return  {
         actions: actions.map(createAction, name).reduce(setPair, {}),
         selectors: Object.entries(selectors).map(createSelector, name).reduce(setPair, {})

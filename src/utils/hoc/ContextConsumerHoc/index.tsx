@@ -3,7 +3,7 @@ import createHoc from '../../lib/createHoc';
 
 
 
-class ContextConsumer extends React.PureComponent {
+class ContextConsumerHoc extends React.PureComponent {
     static defaultProps = {
         consumers: {},
     };
@@ -27,8 +27,8 @@ class ContextConsumer extends React.PureComponent {
 
     createConsumerRenderer = (consumerEntries, i = 0): Function => {
         if (i < consumerEntries.length) {
-            const [name, Consumer] = consumerEntries[i];
             const nextRenderConsumer = this.createConsumerRenderer(consumerEntries, i + 1);
+            const [name, Consumer] = consumerEntries[i];
 
             const catchValue = (value) => {
                 this.contextValues = { ...this.contextValues, [name]: value };
@@ -63,4 +63,4 @@ class ContextConsumer extends React.PureComponent {
 }
 
 
-export default createHoc(ContextConsumer);
+export default createHoc(ContextConsumerHoc);
