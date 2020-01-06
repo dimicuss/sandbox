@@ -7,9 +7,9 @@ import compose from '@/utils/lib/compose';
 
 import BaseContainer from '@/containers/BaseContainer';
 
-import ButtonOne from '../../contexts/ButtonOne';
-import ButtonTwo from '../../contexts/ButtonTwo';
-import ButtonThree from '../../contexts/ButtonThree';
+import ButtonOne from '@/contexts/ButtonOne';
+import ButtonTwo from '@/contexts/ButtonTwo';
+import ButtonThree from '@/contexts/ButtonThree';
 
 
 
