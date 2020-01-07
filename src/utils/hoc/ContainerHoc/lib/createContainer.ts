@@ -1,7 +1,8 @@
 import { createAction as createActionAct } from 'redux-act';
 
 import compose from '../../../lib/compose';
-import setPair from '../../../lib/setPair';
+import mapValues from '../../../lib/mapValues';
+import fromEntries from '../../../lib/fromEntries';
 
 
 interface FunctionField {
@@ -15,18 +16,14 @@ interface Container {
 }
 
 
-type Pair = [string, Function]
-
-
-function createAction(name: string): Pair {
+function createAction(name: string): [string, Function] {
     return [name, createActionAct(`${this}/${name}`)];
 }
 
 
-function createSelector(pair: Pair): Pair {
-    const [name, select] = pair;
+function createSelector(select: Function): Function {
     const selectBase = state => state[this];
-    return [name, compose(selectBase, select)];
+    return compose(selectBase, select);
 }
 
 
@@ -43,7 +40,7 @@ export default function createContainer(
     }
 ): Container {
     return  {
-        actions: ['clearState', ...actions].map(createAction, name).reduce(setPair, {}),
-        selectors: Object.entries(selectors).map(createSelector, name).reduce(setPair, {})
+        actions: fromEntries(['clearState', ...actions].map(createAction, name)),
+        selectors: mapValues(selectors, createSelector, name),
     };
 }

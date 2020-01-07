@@ -1,18 +1,16 @@
 import React from 'react';
 import { ReactReduxContext } from 'react-redux';
-import { combineReducers, ReducersMapObject } from 'redux'
 
 import ContextConsumerHoc from '../ContextConsumerHoc';
 
+
+import addReducer from '../../lib/addReducer';
 import  createWrappedHoc from '../../lib/createWrappedHoc';
 import { runSaga, cancelSaga } from '../../lib/rootSaga';
 import createContainer, { Container } from './lib/createContainer';
 
 
-interface ContextType {
-    containers: { [name: string]: Container }
-    reducers: ReducersMapObject,
-}
+type Context = { [name: string]: Container };
 
 
 interface Props {
@@ -23,7 +21,7 @@ interface Props {
             replaceReducer: Function
         }
     }
-    containerContext: ContextType,
+    containerContext: Context,
     name: string,
     actions: string[],
     selectors: object,
@@ -32,7 +30,7 @@ interface Props {
 }
 
 
-const ContainerContext = React.createContext({ containers: {}, reducers: {} });
+const ContainerContext = React.createContext({});
 const initialState = {};
 
 
@@ -44,7 +42,7 @@ function defaultCreateReducer() { return defaultReducer }
 
 class ContainerHoc extends React.PureComponent {
     props: Props;
-    nextContainerContext: ContextType;
+    nextContainerContext: Context;
     container: Container;
 
 
@@ -66,13 +64,10 @@ class ContainerHoc extends React.PureComponent {
 
         const saga = createSaga(args);
         const reducer = createReducer(args);
-        this.nextContainerContext = {
-            reducers: { ...containerContext.reducers, [name]: reducer },
-            containers: { ...containerContext.containers, [name]: container },
-        };
+        this.nextContainerContext = { ...containerContext, [name]: container };
         this.container = container;
 
-        redux.store.replaceReducer(combineReducers(this.nextContainerContext.reducers));
+        redux.store.replaceReducer(addReducer(name, reducer));
         redux.store.dispatch(runSaga({ name, saga }));
     }
 
@@ -96,11 +91,11 @@ class ContainerHoc extends React.PureComponent {
 
 
 export { ContainerContext };
-export default createWrappedHoc(ContainerHoc)(
+export default createWrappedHoc(
     ContextConsumerHoc({
         consumers: {
             redux: ReactReduxContext.Consumer,
             containerContext: ContainerContext.Consumer,
         },
     })
-);
+)(ContainerHoc);

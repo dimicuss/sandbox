@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import setPair from '../..//lib/setPair';
+import mapValues from '../../lib/mapValues';
 import createHoc from '../../lib/createHoc';
 import { ContainerContext } from '../ContainerHoc';
 
 
-function callSelector([name, selector]) {
-    return [name, selector(this)];
+function callSelector(selector) {
+    return selector(this);
 }
 
 
 function bindSelectorsToState(selectors) {
-    return (state) => Object.entries(selectors).map(callSelector, state).reduce(setPair, {});
+    return (state) => mapValues(selectors, callSelector, state);
 }
 
 
@@ -44,7 +44,7 @@ class ConnectorHoc extends React.PureComponent {
 	constructor(props, context) {
 		super(props, context);
         const { Descendant, createDispatchers, createProps, name } = props;
-        const { selectors, actions } = context.containers[name];
+        const { selectors, actions } = context[name];
 		this.ConnectedDescendant = connect(
 		    bindSelectorsToState(createProps(selectors)),
             createDispatchers(actions)
