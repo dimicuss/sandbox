@@ -1,9 +1,9 @@
 import React from 'react'
 
-import compose from '@/utils/lib/compose';
+import compose from 'react-core-utils/lib/compose';
 
-import ContainerHoc from '@/utils/hoc/ContainerHoc';
-import ConnectorHoc from "@/utils/hoc/ConnectorHoc";
+import ContainerHoc from 'react-core-utils/hoc/ContainerHoc';
+import ConnectorHoc from "react-core-utils/hoc/ConnectorHoc";
 
 import TimerContainer from '@/containers/TimerContainer';
 

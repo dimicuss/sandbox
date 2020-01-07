@@ -3,8 +3,8 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux';
 
-import rootSaga from '@/utils/lib/rootSaga'
-import combineReducers from '@/utils/lib/combineReducers'
+import rootSaga from 'react-core-utils/lib/rootSaga'
+import combineReducers from 'react-core-utils/lib/combineReducers'
 
 import Timer, { TimerComponent } from './';
 
@@ -25,4 +25,6 @@ export const TimerWithContainer = () => (
 );
 
 
-export const SimpleTimer = () => <TimerComponent />;
+export const SimpleTimer = () => (
+    <TimerComponent />
+);
