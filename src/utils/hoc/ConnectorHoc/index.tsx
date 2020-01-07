@@ -25,7 +25,7 @@ class ConnectorHoc extends React.PureComponent {
     props: {
         name: string
         createDispatchers: Function
-        createSelectors: Function
+        createProps: Function
         Descendant: Function
     };
 
@@ -54,7 +54,7 @@ class ConnectorHoc extends React.PureComponent {
 
 	render() {
         const { ConnectedDescendant, props } = this;
-		const { Descendant, name, createDispatchers, createSelectors, ...otherProps } = props;
+		const { Descendant, name, createDispatchers, createProps, ...otherProps } = props;
 		return <ConnectedDescendant {...otherProps} />;
 	}
 }

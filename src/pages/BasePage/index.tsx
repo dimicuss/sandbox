@@ -5,7 +5,7 @@ import compose from '@/utils/lib/compose';
 import ContainerHoc from '@/utils/hoc/ContainerHoc';
 import ConnectorHoc from "@/utils/hoc/ConnectorHoc";
 
-import BaseContainer from '@/containers/BaseContainer';
+import TimerContainer from '@/containers/TimerContainer';
 
 import Timer from './components/Timer';
 
@@ -24,7 +24,8 @@ const ConnectedTimer = compose(
             decreaseInterval,
         }),
     }),
-    ContainerHoc({ name: 'Timer', ...BaseContainer }),
+    ContainerHoc({ name: 'Timer', ...TimerContainer }),
+    ContainerHoc({ name: 'Time2', ...TimerContainer }),
 )(Timer);
 
 

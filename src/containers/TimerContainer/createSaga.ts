@@ -4,9 +4,6 @@ import { delay, take, select, fork, race, cancel, call, put } from 'redux-saga/e
 const secondFactor = 1000;
 
 
-type Func = (...args: any[]) => any;
-
-
 export default function createSaga({ actions, selectors }) {
     function* handleStart(...rest) {
         const interval = yield select(selectors.interval);
@@ -42,7 +39,6 @@ export default function createSaga({ actions, selectors }) {
                 increase: take(actions.increaseInterval),
                 decrease: take(actions.decreaseInterval),
             });
-
 
 
             if (start) {

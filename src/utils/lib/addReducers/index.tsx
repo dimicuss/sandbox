@@ -9,7 +9,7 @@ export function setInitialReducers(reducers: ReducersMapObject) {
 }
 
 
-export default function addReducer(name: string, reducer: Reducer): Reducer {
-    initialReducers = { ...initialReducers, [name]: reducer };
+export default function addReducers(reducers: ReducersMapObject): Reducer {
+    initialReducers = { ...initialReducers, ...reducers };
     return combineReducers(initialReducers);
 }
