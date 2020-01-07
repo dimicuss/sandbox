@@ -4,7 +4,7 @@ import { ReactReduxContext } from 'react-redux';
 import ContextConsumerHoc from '../ContextConsumerHoc';
 
 
-import addReducers from '../../lib/addReducers';
+import combineReducers from '../../lib/combineReducers';
 import  createWrappedHoc from '../../lib/createWrappedHoc';
 import { runSaga, cancelSaga } from '../../lib/rootSaga';
 import createContainer, { Container } from './lib/createContainer';
@@ -67,7 +67,7 @@ class ContainerHoc extends React.PureComponent {
         this.nextContainerContext = { ...containerContext, [name]: container };
         this.container = container;
 
-        redux.store.replaceReducer(addReducers({ [name]: reducer }));
+        redux.store.replaceReducer(combineReducers({ [name]: reducer }));
         redux.store.dispatch(runSaga({ name, saga }));
     }
 

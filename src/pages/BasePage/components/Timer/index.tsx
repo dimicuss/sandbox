@@ -1,9 +1,17 @@
 import React from 'react'
 
+import compose from '@/utils/lib/compose';
+
+import ContainerHoc from '@/utils/hoc/ContainerHoc';
+import ConnectorHoc from "@/utils/hoc/ConnectorHoc";
+
+import TimerContainer from '@/containers/TimerContainer';
+
+
 type EventHandler = (event: any) => void;
 
 
-class BasePage extends React.PureComponent {
+export class TimerComponent extends React.PureComponent {
 	props: {
 		timePassed?: number,
 		interval?: number,
@@ -45,4 +53,19 @@ class BasePage extends React.PureComponent {
 }
 
 
-export default BasePage;
+export default compose(
+    ConnectorHoc({
+        name: 'Timer',
+        createProps: ({ timePassed, interval }) => ({
+            timePassed,
+            interval,
+        }),
+        createDispatchers: ({ start, reset, increaseInterval, decreaseInterval }) => ({
+            start,
+            reset,
+            increaseInterval,
+            decreaseInterval,
+        }),
+    }),
+    ContainerHoc({ name: 'Timer', ...TimerContainer }),
+)(TimerComponent);
