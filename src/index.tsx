@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import Provider from 'react-redux/lib/components/Provider';
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware } from 'redux';
 
-import rootSaga from 'react-core-utils/lib/rootSaga';
-import combineReducers from 'react-core-utils/lib/combineReducers';
+import { rootSaga, combineReducers } from 'react-core-utils';
 
 import BasePage from '@/pages/BasePage';
-
-
-console.log(rootSaga);
 
 
 const div = document.createElement('div');
@@ -19,6 +15,7 @@ const middlewares = applyMiddleware(sagaMiddleware);
 const store = createStore(combineReducers({}), middlewares);
 
 
+console.log(store);
 sagaMiddleware.run(rootSaga);
 document.body.appendChild(div);
 ReactDOM.render(

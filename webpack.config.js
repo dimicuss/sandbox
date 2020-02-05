@@ -5,6 +5,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
 
 module.exports = {
+	devtool: 'eval-cheap-source-map',
 	mode: process.env.NODE_ENV,
 	watch: true,
 	devServer: {
